@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Jogo da Velha</title>
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Jogo da Velha</h1>
+        <h2>Jogador da vez: <span id="sJogadorDaVez">X</span></h2>
+    </header>
+
+    <main>
+        <div class="flex">
+            <div class="tile_row" id="1">
+                <span class="tile tile1"></span>
+                <span class="tile"></span>
+                <span class="tile"></span>
+            </div>
+            <div class="tile_row" id="2">
+                <span class="tile"></span>
+                <span class="tile"></span>
+                <span class="tile"></span>
+            </div>
+            <div class="tile_row" id="3">
+                <span class="tile"></span>
+                <span class="tile"></span>
+                <span class="tile"></span>
+            </div>
+
+        </div>
+
+        <section class="score">
+            <h3>SCORE:</h3>
+            <p>Jogador X: <span class="score__x"></span></p>
+            <p>Jogador O: <span class="score__o"></span></p>
+        </section>
+
+
+        <div>
+            <p class="result"></p>
+            <button class="reload">reiniciar</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
