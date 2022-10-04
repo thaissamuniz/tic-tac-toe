@@ -25,3 +25,7 @@
 .tile__ocupped:hover {
     background-color: cadetblue;
 }
+
+.results {
+    display: none;
+}

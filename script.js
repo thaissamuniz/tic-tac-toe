@@ -3,9 +3,11 @@ const tiles = document.querySelectorAll('.tile');
 const h2 = document.getElementById('sJogadorDaVez');
 const result = document.querySelector('.result');
 const reloadButton = document.querySelector('.reload');
-const container = document.querySelector('.flex');
+const container = document.querySelector('.container');
 const scoreX = document.querySelector('.score__x');
 const scoreO = document.querySelector('.score__o');
+const durationTimeEl = document.getElementById('duration-time');
+const results = document.querySelector('.results');
 const columnLength = 3;
 const X = "X";
 const O = "O";
@@ -21,7 +23,7 @@ let rows = [
     [],
     []
 ];
-
+var startGame = new Date().getTime();
 
 function verifyLine(el) {
     let contaX = 0;
@@ -127,15 +129,30 @@ const restart = () => {
     container.classList.remove('tile__ocupped');
     currentRound = initialPlayer;
     h2.innerHTML = getNextRound(currentRound);
-    clicks = 9
+    clicks = 9;
+    startGame = new Date().getTime();
+    durationTimeEl.innerText = '';
+    results.style.display = 'none';
+
 }
 
 const setWinner = (winner) => {
+
+    results.style.display = 'block';
     container.classList.add('tile__ocupped');
     result.innerHTML = winnerText + winner;
     let point = 1;
     let xCounter = 0;
     let oCounter = 0;
+
+
+    let endGame = new Date().getTime();
+    let timeGame = endGame - startGame;
+    let min = Math.floor((timeGame / 1000 / 60) << 0);
+    let sec = Math.floor((timeGame / 1000) % 60);
+    // let timeSecond = timeGame / 1000;
+    durationTimeEl.innerText = `${min}m : ${sec}s`
+
     if (winner == X) {
 
 
