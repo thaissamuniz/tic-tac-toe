@@ -8,6 +8,7 @@ const scoreX = document.querySelector('.score__x');
 const scoreO = document.querySelector('.score__o');
 const durationTimeEl = document.getElementById('duration-time');
 const results = document.querySelector('.results');
+const bestTimeEl = document.querySelector('.best-time');
 const columnLength = 3;
 const X = "X";
 const O = "O";
@@ -17,13 +18,14 @@ let currentRound = initialPlayer;
 const winnerText = `o ganhador foi o jogador: `;
 let scorePlayerX = 0;
 let scorePlayerO = 0;
+let bestTimeGame = Number.POSITIVE_INFINITY;
 
 let rows = [
     [],
     [],
     []
 ];
-var startGame = new Date().getTime();
+let startGame = new Date().getTime();
 
 function verifyLine(el) {
     let contaX = 0;
@@ -145,16 +147,20 @@ const setWinner = (winner) => {
     let xCounter = 0;
     let oCounter = 0;
 
+    //timer();
 
     let endGame = new Date().getTime();
     let timeGame = endGame - startGame;
     let min = Math.floor((timeGame / 1000 / 60) << 0);
     let sec = Math.floor((timeGame / 1000) % 60);
-    // let timeSecond = timeGame / 1000;
     durationTimeEl.innerText = `${min}m : ${sec}s`
 
-    if (winner == X) {
+    if (timeGame < bestTimeGame) {
+        bestTimeGame = timeGame;
+        bestTimeEl.innerHTML = `jogador ${winner} ${min}m : ${sec}s`
+    }
 
+    if (winner == X) {
 
         for (const row of rows) {
             for (const column of row) {
@@ -185,9 +191,22 @@ const setWinner = (winner) => {
         }
         scorePlayerO = scorePlayerO + point
         scoreO.innerText = scorePlayerO;
-
     }
 }
+
+// function timer() {
+//     let endGame = new Date().getTime();
+//     let timeGame = endGame - startGame;
+//     let min = Math.floor((timeGame / 1000 / 60) << 0);
+//     let sec = Math.floor((timeGame / 1000) % 60);
+//     durationTimeEl.innerText = `${min}m : ${sec}s`
+
+//     if (timeGame < bestTimeGame) {
+//         bestTimeGame = timeGame;
+//         bestTimeEl.innerHTML =  `${min}m : ${sec}s`;
+//     }
+
+// }
 
 for (let i = 0; i < tiles.length; i++) {
     const tile = tiles[i];
