@@ -10,23 +10,17 @@ const columnLength = 3;
 const X = "X";
 const O = "O";
 const initialPlayer = O;
-
-// const row1 = document.getElementById('1');
-// const row2 = document.getElementById('2');
-// const row3 = document.getElementById('3');
+let clicks = 9;
+let currentRound = initialPlayer;
+const winnerText = `o ganhador foi o jogador: `;
+let scorePlayerX = 0;
+let scorePlayerO = 0;
 
 let rows = [
     [],
     [],
     []
 ];
-
-
-let click = 9;
-let currentRound = initialPlayer;
-const winnerText = `o ganhador foi o jogador: `;
-let scorePlayerX = 0;
-let scorePlayerO = 0;
 
 
 function verifyLine(el) {
@@ -104,7 +98,7 @@ function verifyDiagonal(rows) {
         ||
         (rows[0][2] != null && rows[0][2] == rows[1][1]) &&
         (rows[1][1] != null && rows[1][1] == rows[2][0]))) {
-        console.log('ganhou na diagonal');
+        // console.log('ganhou na diagonal');
         if (rows[1][1] == X) {
             return X;
         } else {
@@ -114,7 +108,7 @@ function verifyDiagonal(rows) {
 }
 
 function tie() {
-    if (click == 0 || !verifyLine || !verifyColumn || !verifyDiagonal) {
+    if (clicks === 0) {
         result.innerText = 'deu velha!'
         console.log('deu velha');
     }
@@ -133,15 +127,48 @@ const restart = () => {
     container.classList.remove('tile__ocupped');
     currentRound = initialPlayer;
     h2.innerHTML = getNextRound(currentRound);
+    clicks = 9
 }
 
 const setWinner = (winner) => {
     container.classList.add('tile__ocupped');
     result.innerHTML = winnerText + winner;
-    if(winner == X) {
-        scoreX.innerText = ++scorePlayerX;
-    }else {
-        scoreO.innerText = ++scorePlayerO;
+    let point = 1;
+    let xCounter = 0;
+    let oCounter = 0;
+    if (winner == X) {
+
+
+        for (const row of rows) {
+            for (const column of row) {
+                if (column == X) {
+                    xCounter++;
+                }
+            }
+        }
+        if (xCounter <= 4) {
+            point++;
+        }
+        scorePlayerX = scorePlayerX + point
+        scoreX.innerText = scorePlayerX;
+
+    } else if (winner == O) {
+
+        for (const row of rows) {
+            for (const column of row) {
+                if (column == O) {
+                    oCounter++;
+                }
+            }
+
+        }
+
+        if (oCounter <= 4) {
+            point++;
+        }
+        scorePlayerO = scorePlayerO + point
+        scoreO.innerText = scorePlayerO;
+
     }
 }
 
@@ -157,7 +184,7 @@ for (let i = 0; i < tiles.length; i++) {
 
         h2.innerHTML = getNextRound(currentRound);
         tile.classList.add('tile__ocupped');
-        click--;
+        clicks--;
         addValue(tileRow, i);
 
         let lWinner = verifyLine(tileRow);
@@ -181,11 +208,11 @@ for (let i = 0; i < tiles.length; i++) {
         tie();
 
         console.log(rows);
+
     })
 }
 
 reloadButton.addEventListener('click', restart);
-
 
 
 
