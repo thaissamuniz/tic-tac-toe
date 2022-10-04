@@ -5,7 +5,7 @@ const result = document.querySelector('.result');
 const reloadButton = document.querySelector('.reload');
 const container = document.querySelector('.flex');
 const scoreX = document.querySelector('.score__x');
-const scoreY = document.querySelector('.score__y');
+const scoreO = document.querySelector('.score__o');
 const columnLength = 3;
 const X = "X";
 const O = "O";
@@ -138,6 +138,11 @@ const restart = () => {
 const setWinner = (winner) => {
     container.classList.add('tile__ocupped');
     result.innerHTML = winnerText + winner;
+    if(winner == X) {
+        scoreX.innerText = ++scorePlayerX;
+    }else {
+        scoreO.innerText = ++scorePlayerO;
+    }
 }
 
 for (let i = 0; i < tiles.length; i++) {
